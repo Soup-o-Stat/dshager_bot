@@ -6,9 +6,8 @@ from datetime import datetime, timezone
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 
-RESPONSE_CHANCE = 0.1
+RESPONSE_CHANCE = 0.13
 FILES_FOLDER = "videos"
-
 START_TIME = datetime.now(timezone.utc)
 
 def get_random_file():
@@ -37,7 +36,7 @@ async def bot_loop(token):
     @dp.message(Command("support"))
     async def cmd_support(message: types.Message):
         print(f"[BOT] {message.from_user.id}: {message.text}")
-        await message.answer("Ты можешь поддержать меня тут: https://www.donationalerts.com/r/soup_o_stat")
+        await message.answer("Ты можешь поддержать меня тут: https://dalink.to/soup_o_stat")
 
     @dp.message(Command("help"))
     async def cmd_help(message: types.Message):
@@ -52,7 +51,7 @@ async def bot_loop(token):
 
     @dp.message(Command("send"))
     async def cmd_send(message: types.Message):
-        print(f"[BOT] {message.from_user.id}: {message.text}")
+        print(f"[BOT] {message.text}")
         file_path = get_random_file()
         if file_path:
             ext = os.path.splitext(file_path)[1].lower()
@@ -93,10 +92,15 @@ async def listen_exit():
         cmd = await asyncio.to_thread(input, "")
         if cmd.strip().lower() == "exit":
             print("Exit command received. Shutting down...")
-            sys.exit(0)
+            exit()
 
 async def main():
-    token = input("Введите ваш API токен: ").strip()
+    if len(sys.argv) < 2:
+        print("Ошибка: укажите API токен в аргументах запуска.")
+        print("Пример: python main.py <API_TOKEN>")
+        sys.exit(1)
+
+    token = sys.argv[1].strip()
     await asyncio.gather(bot_loop(token), listen_exit())
 
 if __name__ == "__main__":
