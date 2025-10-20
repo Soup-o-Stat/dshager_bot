@@ -101,6 +101,8 @@ async def listen_exit():
                 _ = os.system('cls')
             else:
                 _ = os.system('clear')
+        elif cmd.strip().lower == "chance":
+            cprint(f"Chance: {RESPONSE_CHANCE}", "yellow")
 
 async def main():
     if len(sys.argv) < 2:
