@@ -53,7 +53,7 @@ async def bot_loop(token):
 
     @dp.message(Command("send"))
     async def cmd_send(message: types.Message):
-        cprint(f"[BOT] {message.text}", "light_yellow")
+        cprint(f"[BOT]: {message.text}", "light_yellow")
         file_path = get_random_file()
         if file_path:
             ext = os.path.splitext(file_path)[1].lower()
@@ -95,6 +95,12 @@ async def listen_exit():
         if cmd.strip().lower() == "exit":
             cprint("Exit command received. Shutting down...", "red")
             exit()
+        elif cmd.strip().lower() == "clear":
+            cprint("Clearing the console...", "red")
+            if os.name == 'nt':
+                _ = os.system('cls')
+            else:
+                _ = os.system('clear')
 
 async def main():
     if len(sys.argv) < 2:
