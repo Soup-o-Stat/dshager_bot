@@ -7,7 +7,7 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from termcolor import cprint
 
-RESPONSE_CHANCE = 0.15
+RESPONSE_CHANCE = 0.10
 FILES_FOLDER = "videos"
 START_TIME = datetime.now(timezone.utc)
 
@@ -95,13 +95,13 @@ async def listen_exit():
         if cmd.strip().lower() == "exit":
             cprint("Exit command received. Shutting down...", "red")
             exit()
-        elif cmd.strip().lower() == "clear":
+        if cmd.strip().lower() == "clear":
             cprint("Clearing the console...", "red")
             if os.name == 'nt':
                 _ = os.system('cls')
             else:
                 _ = os.system('clear')
-        elif cmd.strip().lower == "chance":
+        if cmd.strip().lower == "chance":
             cprint(f"Chance: {RESPONSE_CHANCE}", "yellow")
 
 async def main():
