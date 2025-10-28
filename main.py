@@ -7,7 +7,7 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from termcolor import cprint
 
-RESPONSE_CHANCE = 0.10
+RESPONSE_CHANCE = 0.3
 FILES_FOLDER = "videos"
 START_TIME = datetime.now(timezone.utc)
 
